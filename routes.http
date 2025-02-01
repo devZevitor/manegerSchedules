@@ -24,9 +24,13 @@ POST http://localhost:3333/agendamento
 Content-Type: application/json
 
 {
-    "destinary_name": "Joao",
-    "destinary_email": "vx722100@gmail.com",
+    "destinary_name": "Duda",
+    "destinary_email": "Duda@gamil.com",
     "dayId": "570dc347-0a9f-46f3-9f50-b57de6f0ff02",
     "horarioId": "cf5abcbd-31f7-43fa-8c5d-30e1ac538b6a"
 }
+
+###
+POST http://localhost:3333/agendamento/confirm/77aa93fa-add7-4d72-a603-35a55a7d3662?dayId=570dc347-0a9f-46f3-9f50-b57de6f0ff02&horarioId=cf5abcbd-31f7-43fa-8c5d-30e1ac538b6a
+
 

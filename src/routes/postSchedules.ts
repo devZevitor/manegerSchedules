@@ -5,6 +5,7 @@
     import { prisma } from "../lib/prisma"
     import { ZodTypeProvider } from "fastify-type-provider-zod";
     import dayjs from "dayjs";
+    import {env} from "../env"; 
 
     export function PostSchedules(server: FastifyTypedInstance){
         server.withTypeProvider<ZodTypeProvider>().post("/agendamento",{
@@ -20,6 +21,11 @@
             try {
                 const {destinary_name, destinary_email, dayId, horarioId} = request.body;
 
+                const user = await prisma.clientes.findUnique({ where: {email: destinary_email}});
+                if(!user){
+                    return reply.status(400).send({error: "Cliente não econtrado!"});
+                }
+
                 const dia = await prisma.dias.findUnique({  where: { id: dayId} })
                 const horarioLivre = await prisma.horarios.findUnique({
                     where: {
@@ -33,7 +39,7 @@
                 }
 
                 const date = dayjs(dia?.day).format("DD/MM");
-                const confirmatedLink = "link de confirmação";
+                const confirmatedLink = `${env.API_BASE_URL}/agendamento/confirm/${user.id}?dayId=${dayId}&horarioId=${horarioId}`;
 
                 const mail = await getMailCLient();
                 const message = await mail.sendMail({

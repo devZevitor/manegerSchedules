@@ -8,6 +8,7 @@
     import {PostUser } from "./routes/Create-user";
     import { GetUser } from "./routes/Login-user";
     import { PostSchedules } from "./routes/postSchedules";
+    import { PostConfirmSchedule } from "./routes/postConfirmSchedule";
 
     const server = fastify().withTypeProvider<ZodTypeProvider>();
 
@@ -38,6 +39,7 @@
     server.register(PostUser);
     server.register(GetUser);
     server.register(PostSchedules);
+    server.register(PostConfirmSchedule);
 
     server.listen({port: 3333}).then(() => {
         console.log("Server running!")
